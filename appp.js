@@ -94,58 +94,62 @@ alien_names.innerHTML = alien_ship_1.name;
 let alien_hull_bar = document.querySelector(".hull-bar");
 let alien_name_index = 0;
 
-/////////////////////////////////////////////////////////////////functions to attack
+/////////////////////////////////////////////////////////////////function to attack
 let game = true;
 
-function uss_attack(alien_ship_1) {
+function uss_first_attack() {
   while (game === true) {
-    console.log(alien_ship_1);
     if (USS_Assembly.accuracy >= alien_ship_1.accuracy) {
       alien_ship_1.hull = USS_Assembly.firepower - alien_ship_1.hull;
       if (alien_ship_1.hull <= 0) {
         display_result.innerHTML = `${alien_ship_1.name} has been destroyed. Click "NEXT ALIEN" when you are ready to face the next opponent`;
         game = false;
-        break;
       } else {
+        let alien_hull = document.querySelector(".alien-hull-tracker");
+        alien_hull.innerHTML = alien_ship_1.hull.toFixed(2);
         display_result.innerHTML = `${
           alien_ship_1.name
         } survived with a hull of ${alien_ship_1.hull.toFixed(
           2
         )}. Now its their turn to attack you.`;
         game = false;
-        break;
       }
     } else {
       display_result.innerHTML = `You missed the target. Now its ${alien_ship_1.name}'s turn.`;
       game = false;
-      break;
     }
   }
 }
 
-// function uss_attack() {
-//   if (USS_Assembly.accuracy > alien_ship_1.accuracy) {
-//     alien_ship_1.hull = USS_Assembly.firepower - alien_ship_1.hull;
-//     if (alien_ship_1.hull <= 0) {
-//       alien_names.innerHTML = "";
-//       alien_hull.innerHTML = `${alien_ship_1.name} has been destroyed. Click "NEXT ALIEN" when you are ready to face the next opponent`;
-//       console.log(
-//         `${alien_ship_1.name} has been destroyed. Click "NEXT ALIEN" when you are ready to face the next opponent`
-//       );
-//     } else {
-//       alien_names.innerHTML = "";
-//       alien_hull.innerHTML = `${alien_ship_1.name} survived with a hull of ${alien_ship_1.hull}. Now its their turn to attack you.`;
-//     }
-//   } else {
-//     alien_names.innerHTML = "";
-//     alien_hull.innerHTML = `You missed the target. Now its alien's turn.`;
-//   }
+////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+function uss_second_attack() {
+  alien_ship_1.accuracy = random_num(0.6, 0.8);
+
+  if (USS_Assembly.accuracy >= alien_ship_1.accuracy) {
+    alien_ship_1.hull = USS_Assembly.firepower - alien_ship_1.hull;
+    if (alien_ship_1.hull <= 0) {
+      display_result.innerHTML = `${alien_ship_1.name} has been destroyed. Click "NEXT ALIEN" when you are ready to face the next opponent`;
+    } else {
+      let alien_hull = document.querySelector(".alien-hull-tracker");
+      alien_hull.innerHTML = alien_ship_1.hull.toFixed(2);
+      display_result.innerHTML = `${
+        alien_ship_1.name
+      } survived with a hull of ${alien_ship_1.hull.toFixed(
+        2
+      )}. Now its their turn to attack you.`;
+    }
+  } else {
+    display_result.innerHTML = `You missed the target. Now its ${alien_ship_1.name}'s turn.`;
+  }
+}
+///////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
 
 //function for switching names when switch button is clicked
 function switch_names() {
   alien_names.innerHTML = alien_name_arr[alien_name_index];
   if (alien_names.textContent === "Moonrakers") {
-    uss_attack(alien_ship_1);
   }
   alien_name_index++;
   if (alien_name_index > alien_name_arr.length) {
@@ -193,12 +197,55 @@ function alien_1_attack() {
   if (alien_ship_1.accuracy > USS_Assembly.accuracy) {
     USS_Assembly.hull = USS_Assembly.hull - alien_ship_1.firepower;
     if (USS_Assembly.hull < 0) {
-      uss_hull.innerHTML = " has been destroyed";
+      display_result.innerHTML = "";
+      display_result.innerHTML = `${USS_Assembly.name} has been destroyed`;
     } else {
-      arr__hull__uss.push(USS_Assembly.hull);
-      uss_hull.innerHTML = `hull has been decreased to ${arr__hull__uss}  `;
+      arr__hull__uss.push(USS_Assembly.hull.toFixed(2));
+      let uss_hull = document.querySelector(".uss-hull-tracker");
+      uss_hull.innerHTML = arr__hull__uss;
+      display_result.innerHTML = `${USS_Assembly.name} hull has been decreased to ${arr__hull__uss}  `;
     }
   } else {
-    uss_hull.innerHTML = `The alien missed. Now it is your turn to attack them`;
+    display_result.innerHTML = `The alien missed. Now it is your turn to attack them`;
+    console.log(`hello`);
+  }
+}
+
+function alien_second_attack() {
+  alien_ship_1.accuracy = random_num(0.6, 0.8);
+  if (alien_ship_1.accuracy > USS_Assembly.accuracy) {
+    USS_Assembly.hull = USS_Assembly.hull - alien_ship_1.firepower;
+    console.log(USS_Assembly.hull);
+    if (USS_Assembly.hull < 0) {
+      display_result.innerHTML = `${USS_Assembly.name} has been destroyed`;
+    } else {
+      arr__hull__uss.pop();
+      arr__hull__uss.push(USS_Assembly.hull.toFixed(2));
+      let uss_hull = document.querySelector(".uss-hull-tracker");
+      uss_hull.innerHTML = arr__hull__uss;
+      display_result.innerHTML = `${USS_Assembly.name} hull has been decreased to ${arr__hull__uss}  `;
+    }
+  } else {
+    display_result.innerHTML = `The alien missed. Now it is your turn to attack them`;
+    console.log(`hello baby`);
+  }
+}
+let next_func = true;
+
+function alien_attack_func() {
+  {
+    if (next_func) alien_1_attack();
+    else alien_second_attack();
+
+    next_func = !next_func;
+  }
+}
+let next_func2 = true;
+function uss_attack_func() {
+  {
+    if (next_func2) uss_first_attack();
+    else uss_second_attack();
+
+    next_func2 = !next_func2;
   }
 }
