@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>&#128640; SPACE SHIP VIDEO GAME</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- container section -->
+    <div class="container">
+      <div class="results-div"></div>
+      <div class="game-over-completely hidden">
+        <h1>GAME OVER</h1>
+      </div>
+      <!-- HIDE THIS SECTION WHEN YOU WANT TO DISPLAY GAME OVER WHEN THE RETREAT BUTTON IS PRESSED -->
+      <div class="display-game-over">
+        <div class="first-container">
+          <!-- Player 1 section -->
+          <div class="player-1-sec">
+            <!-- Player 1 Hull Bar section -->
+            <div class="hull-bar-div">
+              <h1 class="hull-bar">USS ASSEMBLY</h1>
+              <div class="hull-tracker uss-hull-tracker"></div>
+            </div>
+            <!-- Player 1 image section -->
+            <div class="img-div">
+              <img
+                src="https://lbmslab.org/lab/wp-content/uploads/2017/12/rocket.gif"
+                alt=""
+                class="player-1-pic"
+              />
+            </div>
+          </div>
+          <!-- Player 2 section -->
+          <div class="player-2-sec">
+            <!-- HIDE THIS SECTION WHEN YOU WANT TO DISPLAY GAME OVER -->
+            <div class="player-2-sec-visible">
+              <!-- Player 2 Hull Bar section -->
+              <div class="hull-bar-div">
+                <h1 class="hull-bar alien-names"></h1>
+                <div class="alien-hull-tracker"></div>
+              </div>
+              <!-- Player 2 image section -->
+              <div class="img-div">
+                <img
+                  src="https://media3.giphy.com/media/26BoCVdjSJOWT0Fpu/giphy.gif?cid=6c09b952f678vqxlg0ewv7ocijaatyc3i1evhlpugrogambb&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g"
+                  alt=""
+                  class="player-1-pic change-img"
+                />
+              </div>
+            </div>
+            <!-- DISPLAY THIS SECTION WHEN YOU WANT TO DISPLAY GAME OVER -->
+            <div class="alien-game-over">
+              <h1 class="hidden game-over">GAME OVER</h1>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-container">
+          <div class="assembly-btn-sec">
+            <!-- Player 1 Buttons section -->
+            <div class="button-div">
+              <button class="attack-btn" onclick="uss_attack(alien_ship_1);">
+                ATTACK
+              </button>
+              <button class="attack-btn" onclick="retreat_btn()">
+                RETREAT
+              </button>
+            </div>
+          </div>
+          <!-- Player 2 Buttons section -->
+          <div class="alien-btn-sec">
+            <div class="button-div alien-btns">
+              <button
+                class="attack-btn"
+                onclick="switch_img();switch_names();switch_alien_hull();"
+              >
+                NEXT ALIEN
+              </button>
+              <button class="attack-btn" onclick="alien_1_attack()">
+                ATTACK
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="appp.js" async defer></script>
+  </body>
+</html>
